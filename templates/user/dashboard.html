@@ -6,26 +6,26 @@
   <div class="container mt-4">
     <div class="container mt-4 text-center">
       {% if current_user.is_admin %}
-        <h1>Welcome, Admin!</h1>
-        <h2>This is the Admin Dashboard</h2>
+        <h1 style="color: white;">Welcome, Admin!</h1>
+        <h2 style="color: white;">This is the Admin Dashboard</h2>
       {% else %}
-        <h1>Welcome, {{ user.first_name }}!</h1>
+        <h1 style="color: white;">Welcome, {{ user.first_name }}!</h1>
         {% if current_user.is_creator %}
-          <h4>You are now a creator</h4>
-          <a class="nav-item nav-link" href="/creator/dashboard">Click HERE to go to creator dashboard</a>
+          <h4 style="color: white;">You are now a creator</h4>
+          <a class="nav-item nav-link" href="/creator/dashboard" style="color: white;">Click HERE to go to creator dashboard</a>
         {% endif %}
-        <h2>This is your Dashboard</h2>
+        <h2 style="color: white;">This is your Dashboard</h2>
       {% endif %}
     </div>
 
     <!-- Playlists Section -->
     <div class="mt-4">
-      <h3>Your Playlists</h3>
+      <h3 style="color: white;">Your Playlists</h3>
       <ul class="list-group">
         {% for playlist in playlists %}
-          <li class="list-group-item">
+          <li class="list-group-item" style="color: black;">
             <div class="d-flex justify-content-between align-items-center">
-              <strong><a href="{{ url_for('views.playlist_details', playlist_id=playlist.id) }}">{{ playlist.name }}</a></strong>
+              <strong><a href="{{ url_for('views.playlist_details', playlist_id=playlist.id) }}" style="color: black;">{{ playlist.name }}</a></strong>
               <!-- Delete Playlist Button -->
               <form method="post" action="{{ url_for('views.userDashboard') }}">
                 <input type="hidden" name="deletePlaylist" value="{{ playlist.id }}">
@@ -34,7 +34,7 @@
             </div>
             <ul>
               {% for song in playlist.songs %}
-                <li><a href="{{ url_for('views.song_details', song_id=song.id) }}">{{ song.title }} - {{ song.artist }}</a></li>
+                <li><a href="{{ url_for('views.song_details', song_id=song.id) }}" style="color: black;">{{ song.title }} - {{ song.artist }}</a></li>
               {% endfor %}
             </ul>
           </li>
@@ -44,8 +44,8 @@
 
     <!-- Songs Section -->
     <div class="mt-4">
-      <h3>All Songs</h3>
-      <table class="table table-bordered">
+      <h3 style="color: white;">All Songs</h3>
+      <table class="table table-bordered" style="color: white;">
         <thead>
           <tr>
             <th>ID</th>
@@ -57,7 +57,7 @@
           {% for song in songs %}
             <tr>
               <td>{{ song.id }}</td>
-              <td><a href="{{ url_for('views.song_details', song_id=song.id) }}">{{ song.title }}</a></td>
+              <td><a href="{{ url_for('views.song_details', song_id=song.id) }}" style="color: white;">{{ song.title }}</a></td>
               <td>{{ song.artist }}</td>
             </tr>
           {% endfor %}

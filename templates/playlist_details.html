@@ -3,16 +3,16 @@
 {% block title %}Playlist Details{% endblock %}
 
 {% block content %}
-  <div class="container mt-4">
+  <div class="container mt-4" style="color: white;">
     <h1>Playlist: {{ playlist.name }}</h1>
     <p>Created at: {{ playlist.created_at }}</p>
     
-    <h2>Songs in this Playlist:</h2>
+    <h2 style="color: white;">Songs in this Playlist:</h2>
     <ul>
       {% for song in playlist.songs %}
         <li>
-          <strong>{{ song.title }}</strong> - {{ song.artist }}
-          <a href="{{ url_for('views.song_details', song_id=song.id) }}">Details</a>
+          <strong style="color: white;">{{ song.title }}</strong> - {{ song.artist }}
+          <a href="{{ url_for('views.song_details', song_id=song.id) }}" style="color: white;">Details</a>
         </li>
       {% endfor %}
     </ul>

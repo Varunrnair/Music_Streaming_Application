@@ -3,25 +3,25 @@
 {% block title %}Upload Song{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
+<div class="container mt-4" style="color: white;">
     <h1>Welcome creator {{ current_user.first_name }}!</h1>
-    <h1>Upload Song</h1>
+    <h1 style="color: white;">Upload Song</h1>
     <form method="post" enctype="multipart/form-data">
         <!-- Song Title -->
         <div class="form-group">
-            <label for="songTitle">Song Title:</label>
-            <input type="text" class="form-control" id="songTitle" name="songTitle" required>
+            <label for="songTitle" style="color: white;">Song Title:</label>
+            <input type="text" class="form-control" id="songTitle" name="songTitle" required style="color: black;">
         </div>
 
         <!-- Lyrics -->
         <div class="form-group">
-            <label for="lyrics">Lyrics:</label>
-            <textarea class="form-control" id="lyrics" name="lyrics" rows="6" required></textarea>
+            <label for="lyrics" style="color: white;">Lyrics:</label>
+            <textarea class="form-control" id="lyrics" name="lyrics" rows="6" required style="color: black;"></textarea>
         </div>
 
         <!-- Audio File -->
         <div class="form-group">
-            <label for="audioFile">Audio File:</label>
+            <label for="audioFile" style="color: white;">Audio File:</label>
             <input type="file" class="form-control-file" id="audioFile" name="audio_file">
         </div>
 

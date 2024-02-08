@@ -3,27 +3,27 @@
 {% block title %}Creator Dashboard{% endblock %}
 
 {% block content %}
-  <div class="container mt-4">
+  <div class="container mt-4" style="color: white;">
     <div class="container mt-4 text-center">
       <h1>Welcome, {{ user.first_name }}!</h1>
-      <h2>You are now a Creator</h2>
-      <h2>This is your Creator Dashboard</h2>
-      <a class="nav-item nav-link" href="/creator/upload_song">Click HERE to upload a new song</a>
+      <h2 style="color: white;">You are now a Creator</h2>
+      <h2 style="color: white;">This is your Creator Dashboard</h2>
+      <a class="nav-item nav-link" href="/creator/upload_song" style="color: white;">Click HERE to upload a new song</a>
     </div>
 
     <!-- Creator-specific statistics -->
     <div class="mt-4">
-      <h3>Your Upload Statistics</h3>
-      <p>Total Uploads: {{ num_uploads }}</p>
+      <h3 style="color: white;">Your Upload Statistics</h3>
+      <p style="color: white;">Total Uploads: {{ num_uploads }}</p>
     </div>
 
     <!-- Songs uploaded by the creator -->
     <div class="mt-4">
-      <h3>Your Uploaded Songs</h3>
+      <h3 style="color: white;">Your Uploaded Songs</h3>
       <ul class="list-group">
         {% for song in uploaded_songs %}
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a href="{{ url_for('views.song_details', song_id=song.id) }}">{{ song.title }} - {{ song.artist }}</a>
+          <li class="list-group-item d-flex justify-content-between align-items-center" style="color: white;">
+            <a href="{{ url_for('views.song_details', song_id=song.id) }}" style="color: white;">{{ song.title }} - {{ song.artist }}</a>
             <form method="post" action="{{ url_for('views.delete_uploaded_song', song_id=song.id) }}">
               <input type="hidden" name="delete_song" value="true">
               <button type="submit" class="btn btn-danger btn-sm">Delete</button>

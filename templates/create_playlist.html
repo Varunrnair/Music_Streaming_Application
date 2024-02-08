@@ -4,24 +4,24 @@
 
 {% block content %}
   <div class="container mt-4">
-    <div class="container mt-4 text-center">
+    <div class="container mt-4 text-center" style="color: white;">
       <h1>Welcome, {{ user.first_name }}!</h1>
       <h1>Create a new playlist</h1>
     </div>
     <form method="post" action="{{ url_for('views.create_playlist') }}">
       <!-- Playlist Name -->
-      <div class="form-group">
-        <label for="playlistName">Playlist Name:</label>
-        <input type="text" class="form-control" id="playlistName" name="playlistName" required>
+      <div class="form-group" style="color: white;">
+        <label for="playlistName" style="color: white;">Playlist Name:</label>
+        <input type="text" class="form-control" id="playlistName" name="playlistName" required style="color: black;">
       </div>
 
       <!-- Song Selection -->
-      <div class="form-group">
-        <label>Select Songs:</label>
+      <div class="form-group" style="color: white;">
+        <label style="color: white;">Select Songs:</label>
         {% for song in all_songs %}
           <div class="form-check">
             <input type="checkbox" class="form-check-input" id="song{{ song.id }}" name="selectedSongs" value="{{ song.id }}">
-            <label class="form-check-label" for="song{{ song.id }}">{{ song.title }} - {{ song.artist }}</label>
+            <label class="form-check-label" for="song{{ song.id }}" style="color: white;">{{ song.title }} - {{ song.artist }}</label>
           </div>
         {% endfor %}
       </div>
