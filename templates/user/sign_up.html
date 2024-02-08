@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-6" style="border: 2px solid #ccc; padding: 20px; border-radius: 10px; max-width: 400px;">
+      <form method="POST" action="{{ url_for('views.userSignup') }}" style="margin: 20px auto;">
+        <h3 class="text-center" style="color: white;">Sign Up</h3>
+        <div class="form-group" style="margin-top: 30px;">
+          <label for="email" style="color: white;">Email Address</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+        </div>
+        <div class="form-group">
+          <label for="firstName" style="color: white;">First Name</label>
+          <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" required>
+        </div>
+        <div class="form-group">
+          <label for="password1" style="color: white;">Password</label>
+          <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter password" required>
+        </div>
+        <div class="form-group">
+          <label for="password2" style="color: white;">Password (Confirm)</label>
+          <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm password" required>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        <p class="text-center" style="color: grey; font-size: 14px; margin-top: 20px;">Already have an account? <a href="{{ url_for('views.userLogin') }}" style="color: white;">Login</a></p>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Playlist Details{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1>Playlist: {{ playlist.name }}</h1>
+    <p>Created at: {{ playlist.created_at }}</p>
+    
+    <h2>Songs in this Playlist:</h2>
+    <ul>
+      {% for song in playlist.songs %}
+        <li>
+          <strong>{{ song.title }}</strong> - {{ song.artist }}
+          <a href="{{ url_for('views.song_details', song_id=song.id) }}">Details</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

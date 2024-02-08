@@ -1,0 +1,6 @@
+venv
+__pycache__
+.vscode
+website/database.db
+instance
+flask_session

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>{% block title %}Home{% endblock %}</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url('/static/pexels-photo-9176068.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .content {
+            padding-top: 80px; /* Adjust this value according to your navbar height */
+            /* Add other necessary styles for your content */
+        }
+
+        /* Styles for your navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.8); /* Adjust the opacity as needed */
+            /* Add other necessary styles for your navbar */
+        }
+    </style>
+</head>
+<body>
+<div class="background-image"></div>
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg navbar-clear" style="background-color: transparent;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <div class="navbar-nav">
+            {% if current_user.is_authenticated %}
+                <a class="nav-item nav-link" href="/" style="color: grey;">Home</a>
+                {% if current_user.is_admin %}
+                    <!-- Link to Flask-Admin Interface -->
+                    <a class="nav-item nav-link" href="{{ url_for('admin.index') }}" style="color: grey;">Flask-Admin Interface</a>
+                {% else %}
+                    <a class="nav-item nav-link" href="/user/dashboard" style="color: grey;">User Dashboard</a>
+                    <a class="nav-item nav-link" href="{{ url_for('views.create_playlist') }}" style="color: grey;">Create Playlist</a>
+                    {% if not current_user.is_creator %}
+                        <a class="nav-item nav-link" href="/creator/become_creator" style="color: grey;">Register as Creator</a>
+                    {% else %}
+                        <a class="nav-item nav-link text-danger"> You are a creator</a>
+                    {% endif %}
+                {% endif %}
+            {% else %}
+                <a class="nav-item nav-link" href="/" style="color: grey;">Home</a>
+            {% endif %}
+        </div>
+        
+        <div class="navbar-nav ml-auto">
+            {% if current_user.is_admin %}
+                <!-- Admin actions -->
+                <form class="form-inline ml-auto" action="{{ url_for('views.search_song') }}" method="GET">
+                    <input class="form-control mr-sm-2" type="search" name="title" placeholder="Search by Title" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                <a class="nav-item nav-link" href="{{ url_for('views.adminLogout') }}" style="color: grey;">Admin Logout</a>
+            {% else %}
+                <!-- Regular user actions -->
+                {% if current_user.is_authenticated %}
+                    <form class="form-inline ml-auto" action="{{ url_for('views.search_song') }}" method="GET">
+                        <input class="form-control mr-sm-2" type="search" name="title" placeholder="Search by Title" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
+                    </form>
+                    <a class="nav-item nav-link" href="{{ url_for('views.userLogout') }}" style="color: grey;">User Logout</a>
+                {% else %}
+                    <a class="nav-item nav-link" href="/user/login" style="color: grey;">Login</a>
+                    <a class="nav-item nav-link" href="/user/sign_up" style="color: grey;">Sign Up</a>
+                {% endif %}
+                <!-- Administrator link -->
+                <a class="nav-item nav-link" href="/admin/login" style="color: grey;">Administrator</a>
+                <!-- Icon -->
+                <a class="nav-item nav-link" ><i class="fa-solid fa-user" style="margin-left: 5px; color: grey;"></i></a>
+            {% endif %}
+        </div>
+        
+    </div>
+</nav>
+<!-- end of navbar -->
+
+<!-- flash messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div class="alert alert-danger alter-dismissable fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% else %}
+                <div class="alert alert-success alter-dismissable fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<!-- end of flash messages -->
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

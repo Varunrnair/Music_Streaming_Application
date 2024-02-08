@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}{{ song.title }} - Song Details{% endblock %}
+{% block content %}
+  <div class="container mt-4">
+    <div class="container mt-4 text-center">
+      <h2>{{ song.title }} - Song Details</h2> 
+    </div>
+   
+    <!-- Display other song details -->
+    <ul>
+      <li><strong>Title:</strong> {{ song.title }}</li>
+      <li><strong>Artist:</strong> {{ song.artist }}</li>
+      <li><strong>Lyrics:</strong> {{ song.lyrics }}</li>
+    </ul> 
+    <a href="{{ url_for('serve_audio', filename=song.audio_file_path) }}">CLICK HERE to the link for the audio file</a>
+    <p></p>
+    
+    <!-- Audio Player -->
+    {% if song.audio_file_path %}
+      <audio controls>
+        <source src="{{ url_for('serve_audio', filename=song.audio_file_path) }}">
+        <p>Your browser doesn't support HTML5 audio. Here is a <a href="{{ url_for('serve_audio', filename=song.audio_file_path) }}">link to the audio</a> instead.</p>
+      </audio>    
+    {% else %}
+        <p>No audio available for this song.</p>
+    {% endif %}
+
+  </div>
+{% endblock %}

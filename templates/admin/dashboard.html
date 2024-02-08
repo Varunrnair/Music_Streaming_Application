@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="container mt-4 text-center">
+      <h1>Welcome, Admin!</h1>
+    </div>
+    <!-- Number of Users -->
+    <div class="mt-4">
+      <h4>Number of Users: {{ num_users }}</h4>
+    </div>
+
+    <!-- Number of Songs -->
+    <div class="mt-4">
+      <h4>Number of Songs: {{ num_songs }}</h4>
+    </div>
+
+    <!-- Number of Creators -->
+    <div class="mt-4">
+      <h4>Number of Creators: {{ num_creators }}</h4>
+    </div>
+    
+    <!-- Users Section -->
+    <div class="mt-4">
+      <h4>Users</h4>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>First Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+            <tr>
+              <td>{{ user.id }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.first_name }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Songs Section -->
+    <div class="mt-4">
+      <h4>Songs</h4>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Artist</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for song in songs %}
+            <tr>
+              <td>{{ song.id }}</td>
+              <td>{{ song.title }}</td>
+              <td>{{ song.artist }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+{% endblock %}

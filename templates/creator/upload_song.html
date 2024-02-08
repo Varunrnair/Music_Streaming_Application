@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Song{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Welcome creator {{ current_user.first_name }}!</h1>
+    <h1>Upload Song</h1>
+    <form method="post" enctype="multipart/form-data">
+        <!-- Song Title -->
+        <div class="form-group">
+            <label for="songTitle">Song Title:</label>
+            <input type="text" class="form-control" id="songTitle" name="songTitle" required>
+        </div>
+
+        <!-- Lyrics -->
+        <div class="form-group">
+            <label for="lyrics">Lyrics:</label>
+            <textarea class="form-control" id="lyrics" name="lyrics" rows="6" required></textarea>
+        </div>
+
+        <!-- Audio File -->
+        <div class="form-group">
+            <label for="audioFile">Audio File:</label>
+            <input type="file" class="form-control-file" id="audioFile" name="audio_file">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Upload Song</button>
+    </form>
+</div>
+{% endblock %}

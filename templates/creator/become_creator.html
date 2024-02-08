@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="container mt-4 text-center">
+        <h1>Welcome, {{ user.first_name }}!</h1>
+        <h1>Would you like to register as a "Creator"?</h1>
+    </div>
+    <form method="post" action="{{ url_for('views.become_creator') }}">
+        <div class="form-group">
+            <label for="isCreator">Is Creator:</label>
+            <select class="form-control" id="isCreator" name="isCreator">
+                <option value="0" {% if not current_user.is_creator %}selected{% endif %}>No</option>
+                <option value="1" {% if current_user.is_creator %}selected{% endif %}>Yes</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

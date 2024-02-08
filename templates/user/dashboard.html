@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="container mt-4 text-center">
+      {% if current_user.is_admin %}
+        <h1>Welcome, Admin!</h1>
+        <h2>This is the Admin Dashboard</h2>
+      {% else %}
+        <h1>Welcome, {{ user.first_name }}!</h1>
+        {% if current_user.is_creator %}
+          <h4>You are now a creator</h4>
+          <a class="nav-item nav-link" href="/creator/dashboard">Click HERE to go to creator dashboard</a>
+        {% endif %}
+        <h2>This is your Dashboard</h2>
+      {% endif %}
+    </div>
+
+    <!-- Playlists Section -->
+    <div class="mt-4">
+      <h3>Your Playlists</h3>
+      <ul class="list-group">
+        {% for playlist in playlists %}
+          <li class="list-group-item">
+            <div class="d-flex justify-content-between align-items-center">
+              <strong><a href="{{ url_for('views.playlist_details', playlist_id=playlist.id) }}">{{ playlist.name }}</a></strong>
+              <!-- Delete Playlist Button -->
+              <form method="post" action="{{ url_for('views.userDashboard') }}">
+                <input type="hidden" name="deletePlaylist" value="{{ playlist.id }}">
+                <button type="submit" class="btn btn-danger btn-sm ml-2">Delete Playlist</button>
+              </form>
+            </div>
+            <ul>
+              {% for song in playlist.songs %}
+                <li><a href="{{ url_for('views.song_details', song_id=song.id) }}">{{ song.title }} - {{ song.artist }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Songs Section -->
+    <div class="mt-4">
+      <h3>All Songs</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Artist</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for song in songs %}
+            <tr>
+              <td>{{ song.id }}</td>
+              <td><a href="{{ url_for('views.song_details', song_id=song.id) }}">{{ song.title }}</a></td>
+              <td>{{ song.artist }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+{% endblock %}
