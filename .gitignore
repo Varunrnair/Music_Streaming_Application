@@ -4,3 +4,4 @@ __pycache__
 website/database.db
 instance
 flask_session
+upload_folder
